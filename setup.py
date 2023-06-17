@@ -13,7 +13,7 @@ setup(
     install_requires=dependencies,
     entry_points={
         'console_scripts': [
-            'pyoffice = pyoffice.main:main',
+            'pyoffice = main:main',
         ],
     } 
 )

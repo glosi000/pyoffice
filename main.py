@@ -1,6 +1,6 @@
 import argparse
 import sys
-from pyoffice.pdf.pdfconv import pdf2txt
+from pyoffice.pdf import pdf2txt, pdfconcat
 
 
 def main():
@@ -14,10 +14,17 @@ def main():
     pdf2txt_parser.add_argument('input', help='Input PDF file path')
     pdf2txt_parser.add_argument('-o', '--output', default=None, required=False, help='Output text file path')
 
+    # Sub-parser for the pdfconcat command
+    pdfconcat_parser = subparsers.add_parser('pdfconcat', description='Concatenate multiple PDF files into a single PDF')
+    pdfconcat_parser.add_argument('-o', '--output', help='Output PDF file path')
+    pdfconcat_parser.add_argument('input', nargs='+', help='Input PDF files to concatenate')
+
     args = parser.parse_args()
 
     if args.command == 'pdf2read':
         pdf2txt(args.input, args.output)
+    elif args.command == 'pdfconcat':
+        pdfconcat(args.output, *args.input)
     else:
         # Display help and available commands
         parser.print_help()
